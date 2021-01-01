@@ -93,7 +93,7 @@ function quiz() { //問題表示
   //選択肢
  s = "";
    for (n=1;n<=q_sel;n++) {
-    s += "【<a href='javascript:anser(" + n + ")'>" + n + "：" + qa[count][n] + "</a>】";
+    s += "【<a href='javascript:anser(" + n + ")'>" + n + "：" + qa[count][n] + "</a>】<br>";
    }
  document.getElementById("text_s").innerHTML = s;
  }
