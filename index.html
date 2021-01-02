@@ -92,8 +92,18 @@ function quiz() { //問題表示
  document.getElementById("text_q").innerHTML = (count + 1) + "問目：" + qa[count][0];
   //選択肢
  s = "";
+
+ //中村追加ランダム。有名なアルゴリズムシャッフルコード「Fisher–Yates shuffle」
+ var sentakusi_rand = [1, 2, 3];
+      for (var m = q_sel - 1; m >= 1; m--) {
+        var rand = Math.floor(Math.random() * (q_sel - 1));
+        var temp = sentakusi_rand[m];
+        sentakusi_rand[m] = sentakusi_rand[rand]
+        sentakusi_rand[rand] = temp;
+      }
+
    for (n=1;n<=q_sel;n++) {
-    s += "【<a href='javascript:anser(" + n + ")'>" + n + "：" + qa[count][n] + "</a>】<br>";
+    s += "【<a href='javascript:anser(" + [sentakusi_rand[n - 1]] + ")'>" + n + "：" + qa[count][n][sentakusi_rand[n - 1]] + "</a>】<br>";
    }
  document.getElementById("text_s").innerHTML = s;
  }
