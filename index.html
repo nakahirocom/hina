@@ -1,161 +1,314 @@
-<!DOCTYPE HTML>
- <html>
- <head>
- <meta charset="utf-8">
- <title>あやりおーまクイズ</title>
- </head>
- <body>
- <h1>あやりおーまクイズ</h1>
- <hr>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <span id="001"></span>
+  <title>三択問題研究中</title>
+</head>
+<body>
+    <body>
+        <h1>さんたくプロ</h1>
+        <hr>
+      
+        <span id="001"></span>
+      
+        <h2>問題</h2>
+        <div id="text_q" style="font-size: 30px"></div>
 
- <h2>問題</h2>
- <div id="text_q"></div>
- <h2>選択</h2>
- <div id="text_s"></div>
- <h2>解答</h2>
- <div id="text_a"></div>
 
 
- <script type="text/javascript">
+        <h2>選択肢</h2>
+        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r1" onclick="kaitouClick();aclick(1)"></button>
+        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r2" onclick="kaitouClick();aclick(2)"></button>
+        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r3" onclick="kaitouClick();aclick(3)"></button>
 
- //問題と解答
- qa = new Array();
 
- qa[0] = ["しょぼいオノの材料は？","きのえだ×5、いし×1","ショボいオノ×1、もくざい×3","ショボいオノ×1、もくざい×3、てっこうせき×1",1];
- qa[1] = ["いしのオノの材料は？","きのえだ×5、いし×1","ショボいオノ×1、もくざい×3","ショボいオノ×1、もくざい×3、てっこうせき×1",2];
- qa[2] = ["オノの材料は？","きのえだ×5、いし×1","ショボいオノ×1、もくざい×3","ショボいオノ×1、もくざい×3、てっこうせき×1",3];
- qa[3] = ["金のオノの材料は？","きのえだ×5、いし×1","オノ×1、金鉱石×1","ショボいオノ×1、もくざい×3、てっこうせき×1",2];
- qa[4] = ["キャンプファイアのレシピで正しいのはどれ","たきび×1、もくざい×15","たきび×1、もくざい×5","たきび×1、もくざい×10",3];
- qa[5] = ["そぼくなDIY作業台のレシピで正しいのはどれ","かたいもくざい×1、もくざい×15","やわらかいもくざい×5、鉄鉱石×5","かたいもくざい×5、鉄鉱石×1",3];
- qa[6] = ["たけのスツールのレシピで正しいのはどれ","バンブー×3","バンブー×5","バンブー×8",2];
- qa[7] = ["かめのレシピで正しいのはどれ","ねんど×3","ねんど×5","ねんど×8",2];
- qa[8] = ["たぬき商店の営業時間は？","年中無休８時～２２時","土日休日８時～２２時","まめきちの気まぐれ営業",1];
- qa[9] = ["あつもりのボスは？","プレイヤー","たぬきち","しずえ",2];
- qa[10] = ["美術品を持ってくるキャラクターは？","つねきち","たぬきち","しずえ",1];
- qa[11] = ["鬼滅の刃の夢番地「DA-4472-1762-9263」の使い方は？","寝て使う","釣りで使う","タヌポートで使う",1];
- qa[12] = ["カブを売っているキャラは？","たぬきち","トタケケ","ウリ",3];
- qa[13] = ["あつもりに存在するのは？","赤コーナー","黄色コーナー","みどりコーナー",1];
- qa[14] = ["ブラウンクラウンの壁紙のねだんは？","２３００ベル","２３５０ベル","２４００ベル",2];
- qa[15] = ["タンバリンの値段は？","１５００ベル","２０００ベル","２５００ベル",1];
- qa[16] = ["引っ越し段ボールＬのレシピは？","段ボール×5","段ボール×5、黄色いラッピングペーパー×1","段ボール×4、黄色いラッピングペーパー×1",1];
- qa[17] = ["あつもりで100000ベル持っているとき最高何ベルまでまとめられますか？","99990ベル","99900ベル","99000ベル",3];
- qa[18] = ["あつもりでつねきちは美術品を何個持ってきますか？","２つ","４つ","６つ",2];
- qa[19] = ["あつもりで高額商品でないものはどれ？","オリエンタルなチェスト","キュートなベッド","TOYなテーブル",1];
- qa[20] = ["液晶テレビ20インチと壁掛けテレビ50インチはどちらが高い？","液晶テレビ20インチ","壁掛けテレビ50インチ","同じ",1];
- qa[21] = ["学習ポスターのバリエーションはいくつありますか？","２つ","３つ","４つ",3];
- qa[22] = ["おもちゃ家具は何種類ありますか？","６個","８個","１０個",2];
- qa[23] = ["木から落ちるのは何ベルでしょう","100ベル","200ベル","300ベル",1];
- qa[24] = ["あつもりに無いものは次のうちどれでしょう","アイアンウォールランプ","アイアンＤＩＹ作業台","アイアンガーデンベンチ",2];
- qa[25] = ["あつもりに無いものは次のうちどれでしょう","オリエンタルなチェスト","オリエンタルなクローゼット","オリエンタルなかざりだな",2];
- qa[26] = ["あつもりのシンプルな井戸のレシピはどれでしょう","いし×15","いし×15、しょぼいスコップ×1","いし×15、スコップ×1",2];
- qa[27] = ["あつもりの島クリエイター河川工事ライセンスは何マイル必要ですか？","5000マイル","6000マイル","7000マイル",2];
- qa[28] = ["あつもりのたき火の入手方法は次のうちどれでしょう？","たぬき商店から買う","DIYで作る","たぬきマイルと交換する",2];
- qa[29] = ["あつもりの2回目のローン金額は次のうちどれでしょう？","98000ベル","148000ベル","198000ベル",3];
- qa[30] = ["あつもりのほしのかけらの入手方法は次のうちどれでしょう？","ベッドで夢をみる","お出かけして住民からもらう","流れ星にお祈りする",3];
- qa[31] = ["あつもりにあるものは次のうちどれでしょう？","オリエンタルなテーブル","しょさいのつくえ","ぼうはんカメラ",2];
- qa[32] = ["あつもりの動物は１つの島に何人まででしょう？","8人","10人","18人",2];
- qa[33] = ["あつもりの洋風のはかいしのレシピは次のうちどれでしょう？","いし×30","いし×30、ピンクのコスモス×1","いし×20",1];
- qa[34] = ["あつもりのくまのトクダイちゃんのリメイクに必要なキットは何個でしょう？","7個","8個","リメイクできない",2];
- qa[35] = ["あつもりのおとしあなのタネのレシピは次のうちどれでしょう？","きのえだ×4、ざっそう×6","きのえだ×5、ざっそう×5","きのえだ×6、ざっそう×4",3];
- qa[36] = ["あつもりの3段目のがけはなにができるでしょう？","がけを作ること","のぼること","ものをおくこと",1];
- qa[37] = ["あつもりのたかとびぼうのレシピは次のうちどれでしょう？","やわらかいもくざい×5","もくざい×5","かたいもくざい×5",1];
- qa[38] = ["あつもりのふんすいで使うマスは何マスでしょう？","1×1","2×2","3×3",3];
- qa[39] = ["あつもりの買取金額が2000ベルの虫は次のうちどれでしょう？","フナムシ","たがめ","ハチ",2];
- qa[40] = ["あつもりの青いオーナメントの入手方法は次のうちどれでしょう？","木をゆする","海にもぐる","砂をほる",1];
- qa[41] = ["あつもりの次の中で一番高いのはどれでしょう？","はんごう","ゴング","おこう",1];
- qa[42] = ["あつもりのつり・虫取り大会の制限時間は何分でしょう？","１０分","５分","３分",1];
- qa[43] = ["あつもりで落し物は何種類あるどれでしょう？","２種類","１種類","３種類",1];
- qa[44] = ["あつもりの案内所の建物が完成する条件はどれでしょう？","橋をかける","博物館に合わせて６０個寄贈","ハウジングキットで３人呼ぶ",1];
- qa[45] = ["あつもりのハチの追い払えないのはどれでしょう？","人に話す","クラッカーをならす","アミでとる",1];
- qa[46] = ["あつもりのジョニーの通信装置の入手方法はどれでしょう？","海にもぐる","砂をほる","木をゆする",1];
- qa[47] = ["あつもりのタヌキ商店のスタッフはだれでしょう？","まめきち・つぶきち","たぬきち・まめきち","たぬきち・つぶきち",1];
- qa[48] = ["あつもりの夏の貝殻は何ベルで買い取ってもらえるでしょう？","600ベル","200ベル","1800ベル",1];
- qa[49] = ["あつもりの島にやってきて花を売っているのはだれでしょう？","レイジ","シャンク","ローラン",1];
 
- function run(){ //randomの生成
- for (var i = qa.length-1; i>=0; i--){
-  var rand = Math.floor(Math.random() * (i+1));
-  var temp = qa[i];
-  qa[i] = qa[rand]
-  qa[rand] = temp;
-  quiz(qa);
- }
+        <div id="te" style="font-size: 30px" onclick="shafulu()">シャッフル</div>
+
+
+        <h2>答え合わせ</h2>
+        <div id="text_q1" style="font-size: 30px"></div>
+        <div id="text_a1"></div>
+        <div id="text_k1"></div>
+        <div id="text_maru1"></div>
+        <div id="text_batu1"></div>
+      
+      
+        <div id="text_q2" style="font-size: 30px"></div>
+        <div id="text_a2"></div>
+        <div id="text_k2"></div>
+        <div id="text_maru2"></div>
+        <div id="text_batu2"></div>
+      
+      
+        <div id="text_q3" style="font-size: 30px"></div>
+        <div id="text_a3"></div>
+        <div id="text_k3"></div>
+        <div id="text_maru3"></div>
+        <div id="text_batu3"></div>
+
+      
+        <h2>解説</h2>
+        <div id="text_k"></div>
+        <div id="text_ans"></div>
+
+<script src="quizfile.js">
+
+</script>
+
+
+
+
+<script>
+//グローバル関数を宣言しなければfunctionの中で宣言した関数は使えないため、functionの外で宣言しなければならない
+let syutudai3 = [];
+let sentakusi3 = [];
+
+
+//■■■quizufile.jsの問題をランダムに並び替える■■■
+
+function shafulu(){
+
+//■1_1 mondaisuuへ代入
+let mondai1_1 = toridasi_qa();
+
+function toridasi_qa(){
+  //問題数をmondaisuuへ代入
+  let mondaisuu = qa.length
+  return mondaisuu;
+};
+console.info('1-1 問題数は{ '+mondai1_1+' }問です');
+
+
+
+//■1_2 mondaisuuの配列を作る
+let array1_2 = randamu1_2();
+
+function randamu1_2(){
+  let array = []; 
+  for(let i=0 ; i< mondai1_1 ; i++){
+  array.push(i);
+//  console.log(array);
+  }
+  return array;
+}
+console.log('1-2 問題数の配列は{ '+array1_2+' }です');
+
+
+
+//■1-3 mondaisuuArrayの配列を重複なくランダムに並び替える
+let randArray1_3 =randamu1_3();
+
+function randamu1_3(){
+  let array1_3 = array1_2;
+   
+  for(let i= array1_3.length -1 ; i >= 0 ; i-- ){
+    let rand = Math.floor(Math.random() * (i + 1));
+
+ //   console.log('1-3 ランダムな数字は{ ' + rand + ' }です');
+//一旦、配列の最後をtempに保存
+    temp = array1_3[i];  
+//ランダムでヒットしたものを配列の最後に移動(代入)
+    array1_3[i] = array1_3[rand];
+ //   console.log('1-3 array1_3は{ ' + array1_3 + ' }です');
+//配列の最後にあったtempをランダムでヒットした所に移動(代入)
+    array1_3[rand] = temp;
+ //   console.log('1-3 array1_3は{ ' + array1_3 + ' }です');
+    
+  //console.log(array1_3);
+  }
+  return array1_3;
+}
+console.log('1-3 問題を重複せずシャッフルした配列は{ '+randArray1_3+' }です');
+
+
+
+//■1-4 1-3のランダム数値を元に出題問題を3つピックアップ
+//let syutudai3 = [];
+ syutudai3[0] = qa[randArray1_3[0]];
+ syutudai3[1] = qa[randArray1_3[1]];
+ syutudai3[2] = qa[randArray1_3[2]];
+
+console.log('1-4 出題する3問は{ '+syutudai3+' }です');
+
+
+
+//■1-5　0番目を問題として出題する 
+document.getElementById("text_q").innerHTML = "   "+syutudai3[0];
+console.log('1-5 出題するsyutudai3[0][0]の問題は{ '+syutudai3[0][0]+' }です');
+
+
+
+//■1_6 senntakusuuへ代入
+let sentakusuu1_6 = sentakusi_qa();
+
+function sentakusi_qa(){
+  //問題数をsentakusuuへ代入
+  let sentakusuu = syutudai3.length
+  return sentakusuu;
+};
+console.info('1-6 回答の選択肢は{ '+sentakusuu1_6+' }つです');
+
+
+
+//■1_7 mondaisuuの配列を作る
+let array1_7 = randamu1_7();
+
+function randamu1_7(){
+  let array = []; 
+  for(let i=0 ; i< sentakusuu1_6 ; i++){
+  array.push(i);
+//  console.log(array);
+  }
+  return array;
+}
+console.log('1-7 配列0,1,2の選択肢は{ '+array1_7+' }です');
+
+
+
+//■1-8　選択肢をランダムに並び替える
+let senrandamu1_8 = randamu1_8();
+
+function randamu1_8(){
+  let array1_8 = array1_7;
+   
+  for(let i= array1_8.length -1 ; i >= 0 ; i-- ){
+    let rand = Math.floor(Math.random() * (i + 1));
+
+//    console.log('1-8をシャッフルした配列添字は{ ' + array1_8 + ' }です');
+//一旦、配列の最後をtempに保存
+    temp = array1_8[i];  
+//ランダムでヒットしたものを配列の最後に移動(代入)
+array1_8[i] = array1_8[rand];
+//    console.log('array1_8は{ ' + array1_8 + ' }です');
+//配列の最後にあったtempをランダムでヒットした所に移動(代入)
+array1_8[rand] = temp;
+ //   console.log('array1_8は{ ' + array1_8 + ' }です');
+    
+ // console.log(array1_8);
+  }
+  return array1_8;
+}
+console.log('1-8 回答を重複せずシャッフルした配列は{ '+senrandamu1_8+' }です');
+
+
+//■1-9　1-8のランダム配列を使って選択肢を表示させる
+//let sentakusi3 = [];
+  sentakusi3[0] = syutudai3[senrandamu1_8[0]];
+  sentakusi3[1] = syutudai3[senrandamu1_8[1]];
+  sentakusi3[2] = syutudai3[senrandamu1_8[2]];
+
+console.info('1-9 並び替えた回答の選択肢sentakusi3は{ '+sentakusi3+' }です');
+
+
+
+//■1-10　1-9の配列をhtmlに表示させる
+for (let sen = 0; sen < sentakusi3.length; sen++) {
+    document.getElementById("text_r"+(sen+1)).innerHTML = ""+(sen+1)+"■"+sentakusi3[sen][1];
+
+console.info('1-10 選択肢HTMLに表示されるものは{ '+sentakusi3[sen][1]+' }です');
+}
+
+console.info('1-11 選択肢HTMLに表示されるものは{ '+document.getElementById("text_r1").innerHTML+' }です');
+
+
+//shafulの最後
+}
+
+console.info('syutudai3は{ '+sentakusi3+' }です');
+console.info('sentakusi3は{ '+sentakusi3+' }です');
+
+//■1-11　選択肢ボタンを1回しか押せなくする
+
+
+
+
+function kaitouClick(){
+  //一度押したら回答ボタンが押せなくなる処理
+/**
+  for(i=0 ; i<=2 ; i++){
+    if (document.getElementById("text_r"+(i+1)).disabled === true){
+		// disabled属性を削除
+		document.getElementById("text_r"+(i+1)).removeAttribute("disabled");
+		document.getElementById("text_r"+(i+1)).style.color = "black";
+	  }else{
+		// disabled属性を設定
+		document.getElementById("text_r"+(i+1)).setAttribute("disabled", true);
+		document.getElementById("text_r"+(i+1)).style.color = "White";
+	  }
+  }
+*/
+}
+
+
+
+
+//1-12 onclickの引数を使ってボタン押したら正解かを判定する
+function aclick(num){
+  if (num === 1 && syutudai3[0][3] === sentakusi3[num-1][3]) {
+        let sen = sentakusi3[num-1][3];
+        qa[sen][4] = qa[sen][4] +1 ;  
+        console.log("正解数は"+qa[sen][4]+"です");
+  }else if(num === 2 && syutudai3[0][3] === sentakusi3[num-1][3]){
+    let sen = sentakusi3[num-1][3];
+        qa[sen][4] = qa[sen][4] +1 ;  
+        console.log("正解数は"+qa[sen][4]+"です");
+  }else if(num === 3 && syutudai3[0][3] === sentakusi3[num-1][3]){
+    let sen = sentakusi3[num-1][3];
+        qa[sen][4] = qa[sen][4] +1 ;  
+        console.log("正解数は"+qa[sen][4]+"です");
+
   }
 
+//■1-13 回答・解説・正誤を表示させる処理
 
- //初期設定
- q_sel = 3; //選択肢の数
- setReady(qa);
+for (let sen = 0; sen < sentakusi3.length; sen++) {
+    if(syutudai3[0][0]==sentakusi3[sen][0]){
+      var anser= "---";
 
-function setReady() {//初期設定
- count = 0; //問題番号
- ansers = new Array(); //解答記録
- run(); //再テストの場合のランダムの生成
- quiz(); //最初の問題
- }
-function quiz() { //問題表示
-  var s, n;
-  //問題
- document.getElementById("text_q").innerHTML = (count + 1) + "問目：" + qa[count][0];
-  //選択肢
- s = "";
+      
+    console.log(qa[0][4]);
 
- //中村追加ランダム。有名なアルゴリズムシャッフルコード「Fisher–Yates shuffle」
- var sentakusi_rand = [1, 2, 3];
-      for (var m = q_sel - 1; m >= 1; m--) {
-        var rand = Math.floor(Math.random() * (q_sel - 1));
-        var temp = sentakusi_rand[m];
-        sentakusi_rand[m] = sentakusi_rand[rand]
-        sentakusi_rand[rand] = temp;
-      }
+    }else{
+      anser= "-";
+    }
+      let namber = sentakusi3[sen][3]
+    document.getElementById("text_q"+(sen+1)).innerHTML = ""+(sen+1)+"■ "+qa[namber][0];
+    document.getElementById("text_a"+(sen+1)).innerHTML = "解答"+anser+"  "+qa[namber][1];
+    document.getElementById("text_k"+(sen+1)).innerHTML = "解説"+anser+" ◆ "+qa[namber][2];
+    document.getElementById("text_maru"+(sen+1)).innerHTML = "正解数"+anser+"  "+qa[namber][4];
+    document.getElementById("text_batu"+(sen+1)).innerHTML = "間違数"+anser+"  "+qa[namber][5];
 
-   for (n=1;n<=q_sel;n++) {
-    s += "【<a href='javascript:anser(" + [sentakusi_rand[n - 1]] + ")'>" + n + "：" + qa[count][sentakusi_rand[n - 1]] + "</a>】<br>";
-   }
- document.getElementById("text_s").innerHTML = s;
- }
-function anser(num) { //解答表示
-  var s;
-  s = (count + 1) + "問目：";
-  //答え合わせ
- if (num == qa[count][q_sel + 1]) {
-   //正解
-  ansers[count] = "○";
-  } else {
-   ansers[count] = "×";
+
   }
-  s += ansers[count] + qa[count][num];
-  document.getElementById("text_a").innerHTML = s;
-  //次の問題を表示
- count++;
-  if (count < qa.length) {
-   quiz();
-  } else {
-   //終了
-  s = "<table border='2'><caption>成績発表</caption>";
-   //1行目
-  s += "<tr><th>問題</th>";
-   for (n=0;n<qa.length;n++) {
-    s += "<th>" + (n+1) + "</th>";
-   }
-   s += "</tr>";
-   //2行目
-  s += "<tr><th>成績</th>";
-   for (n=0;n<qa.length;n++) {
-    s += "<td>" + ansers[n] + "</td>";
-   }
-   s += "</tr>";
-   s += "</table>";
-   document.getElementById("text_q").innerHTML = s;
-   //次の選択肢
-  s = "【<a href='javascript:history.back()'>前のページに戻る</a>】";
-   s += "【<a href='javascript:setReady()'>同じ問題を最初から</a>】";
-   s += "【<a href=''>次の問題に進む</a>】";
-   document.getElementById("text_s").innerHTML = s;
+}
+
+
+
+/**
+
+//1-14　押せなくなった回答ボタンを復活させる処理
+function kaizyo(){
+  for(i=0 ; i<=2 ; i++){
+    if (document.getElementById("text_r"+(i+1)).disabled === true){
+		// disabled属性を削除
+		document.getElementById("text_r"+(i+1)).removeAttribute("disabled");
+		document.getElementById("text_r"+(i+1)).style.color = "black";
+  	}else{
+		// disabled属性を設定
+    // document.getElementById("text_r"+(i+1)).setAttribute("disabled", true);
+    // document.getElementById("text_r"+(i+1)).style.color = "White";
+  	}
   }
- }
- </script>
- </body>
- </html>
+}
+
+
+*/
+
+
+</script>  
+</body>
+</html>
