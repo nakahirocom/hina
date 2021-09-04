@@ -1,314 +1,45 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>三択問題研究中</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <body>
-        <h1>さんたくプロ</h1>
-        <hr>
-      
-        <span id="001"></span>
-      
-        <h2>問題</h2>
-        <div id="text_q" style="font-size: 30px"></div>
+    <script>
+let fs = require("fs");
 
+let array = [1,2,3];
 
+save();
 
-        <h2>選択肢</h2>
-        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r1" onclick="kaitouClick();aclick(1)"></button>
-        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r2" onclick="kaitouClick();aclick(2)"></button>
-        <button style="display:block;text-align: left;font-size: 30px" type="submit" id="text_r3" onclick="kaitouClick();aclick(3)"></button>
-
-
-
-        <div id="te" style="font-size: 30px" onclick="shafulu()">シャッフル</div>
-
-
-        <h2>答え合わせ</h2>
-        <div id="text_q1" style="font-size: 30px"></div>
-        <div id="text_a1"></div>
-        <div id="text_k1"></div>
-        <div id="text_maru1"></div>
-        <div id="text_batu1"></div>
-      
-      
-        <div id="text_q2" style="font-size: 30px"></div>
-        <div id="text_a2"></div>
-        <div id="text_k2"></div>
-        <div id="text_maru2"></div>
-        <div id="text_batu2"></div>
-      
-      
-        <div id="text_q3" style="font-size: 30px"></div>
-        <div id="text_a3"></div>
-        <div id="text_k3"></div>
-        <div id="text_maru3"></div>
-        <div id="text_batu3"></div>
-
-      
-        <h2>解説</h2>
-        <div id="text_k"></div>
-        <div id="text_ans"></div>
-
-<script src="quizfile.js">
-
-</script>
-
-
-
-
-<script>
-//グローバル関数を宣言しなければfunctionの中で宣言した関数は使えないため、functionの外で宣言しなければならない
-let syutudai3 = [];
-let sentakusi3 = [];
-
-
-//■■■quizufile.jsの問題をランダムに並び替える■■■
-
-function shafulu(){
-
-//■1_1 mondaisuuへ代入
-let mondai1_1 = toridasi_qa();
-
-function toridasi_qa(){
-  //問題数をmondaisuuへ代入
-  let mondaisuu = qa.length
-  return mondaisuu;
+function save(){
+    fs.writeFileSync('./tasks.json', JSON.stringify(array),'utf8') 
 };
-console.info('1-1 問題数は{ '+mondai1_1+' }問です');
 
-
-
-//■1_2 mondaisuuの配列を作る
-let array1_2 = randamu1_2();
-
-function randamu1_2(){
-  let array = []; 
-  for(let i=0 ; i< mondai1_1 ; i++){
-  array.push(i);
-//  console.log(array);
+// 同期的にファイルから復元
+try {
+    const data = fs.readFileSync('./tasks.json', 'utf8');
+    tasks = JSON.parse(data);
+    console.log("tasksの中は"+tasks+"です")
+  } catch (ignore) {
+    console.log('./tasks.json' + 'から復元できませんでした');
   }
-  return array;
-}
-console.log('1-2 問題数の配列は{ '+array1_2+' }です');
-
-
-
-//■1-3 mondaisuuArrayの配列を重複なくランダムに並び替える
-let randArray1_3 =randamu1_3();
-
-function randamu1_3(){
-  let array1_3 = array1_2;
-   
-  for(let i= array1_3.length -1 ; i >= 0 ; i-- ){
-    let rand = Math.floor(Math.random() * (i + 1));
-
- //   console.log('1-3 ランダムな数字は{ ' + rand + ' }です');
-//一旦、配列の最後をtempに保存
-    temp = array1_3[i];  
-//ランダムでヒットしたものを配列の最後に移動(代入)
-    array1_3[i] = array1_3[rand];
- //   console.log('1-3 array1_3は{ ' + array1_3 + ' }です');
-//配列の最後にあったtempをランダムでヒットした所に移動(代入)
-    array1_3[rand] = temp;
- //   console.log('1-3 array1_3は{ ' + array1_3 + ' }です');
-    
-  //console.log(array1_3);
-  }
-  return array1_3;
-}
-console.log('1-3 問題を重複せずシャッフルした配列は{ '+randArray1_3+' }です');
-
-
-
-//■1-4 1-3のランダム数値を元に出題問題を3つピックアップ
-//let syutudai3 = [];
- syutudai3[0] = qa[randArray1_3[0]];
- syutudai3[1] = qa[randArray1_3[1]];
- syutudai3[2] = qa[randArray1_3[2]];
-
-console.log('1-4 出題する3問は{ '+syutudai3+' }です');
-
-
-
-//■1-5　0番目を問題として出題する 
-document.getElementById("text_q").innerHTML = "   "+syutudai3[0];
-console.log('1-5 出題するsyutudai3[0][0]の問題は{ '+syutudai3[0][0]+' }です');
-
-
-
-//■1_6 senntakusuuへ代入
-let sentakusuu1_6 = sentakusi_qa();
-
-function sentakusi_qa(){
-  //問題数をsentakusuuへ代入
-  let sentakusuu = syutudai3.length
-  return sentakusuu;
-};
-console.info('1-6 回答の選択肢は{ '+sentakusuu1_6+' }つです');
-
-
-
-//■1_7 mondaisuuの配列を作る
-let array1_7 = randamu1_7();
-
-function randamu1_7(){
-  let array = []; 
-  for(let i=0 ; i< sentakusuu1_6 ; i++){
-  array.push(i);
-//  console.log(array);
-  }
-  return array;
-}
-console.log('1-7 配列0,1,2の選択肢は{ '+array1_7+' }です');
-
-
-
-//■1-8　選択肢をランダムに並び替える
-let senrandamu1_8 = randamu1_8();
-
-function randamu1_8(){
-  let array1_8 = array1_7;
-   
-  for(let i= array1_8.length -1 ; i >= 0 ; i-- ){
-    let rand = Math.floor(Math.random() * (i + 1));
-
-//    console.log('1-8をシャッフルした配列添字は{ ' + array1_8 + ' }です');
-//一旦、配列の最後をtempに保存
-    temp = array1_8[i];  
-//ランダムでヒットしたものを配列の最後に移動(代入)
-array1_8[i] = array1_8[rand];
-//    console.log('array1_8は{ ' + array1_8 + ' }です');
-//配列の最後にあったtempをランダムでヒットした所に移動(代入)
-array1_8[rand] = temp;
- //   console.log('array1_8は{ ' + array1_8 + ' }です');
-    
- // console.log(array1_8);
-  }
-  return array1_8;
-}
-console.log('1-8 回答を重複せずシャッフルした配列は{ '+senrandamu1_8+' }です');
-
-
-//■1-9　1-8のランダム配列を使って選択肢を表示させる
-//let sentakusi3 = [];
-  sentakusi3[0] = syutudai3[senrandamu1_8[0]];
-  sentakusi3[1] = syutudai3[senrandamu1_8[1]];
-  sentakusi3[2] = syutudai3[senrandamu1_8[2]];
-
-console.info('1-9 並び替えた回答の選択肢sentakusi3は{ '+sentakusi3+' }です');
-
-
-
-//■1-10　1-9の配列をhtmlに表示させる
-for (let sen = 0; sen < sentakusi3.length; sen++) {
-    document.getElementById("text_r"+(sen+1)).innerHTML = ""+(sen+1)+"■"+sentakusi3[sen][1];
-
-console.info('1-10 選択肢HTMLに表示されるものは{ '+sentakusi3[sen][1]+' }です');
-}
-
-console.info('1-11 選択肢HTMLに表示されるものは{ '+document.getElementById("text_r1").innerHTML+' }です');
-
-
-//shafulの最後
-}
-
-console.info('syutudai3は{ '+sentakusi3+' }です');
-console.info('sentakusi3は{ '+sentakusi3+' }です');
-
-//■1-11　選択肢ボタンを1回しか押せなくする
-
-
-
-
-function kaitouClick(){
-  //一度押したら回答ボタンが押せなくなる処理
-/**
-  for(i=0 ; i<=2 ; i++){
-    if (document.getElementById("text_r"+(i+1)).disabled === true){
-		// disabled属性を削除
-		document.getElementById("text_r"+(i+1)).removeAttribute("disabled");
-		document.getElementById("text_r"+(i+1)).style.color = "black";
-	  }else{
-		// disabled属性を設定
-		document.getElementById("text_r"+(i+1)).setAttribute("disabled", true);
-		document.getElementById("text_r"+(i+1)).style.color = "White";
-	  }
-  }
-*/
-}
-
-
-
-
-//1-12 onclickの引数を使ってボタン押したら正解かを判定する
-function aclick(num){
-  if (num === 1 && syutudai3[0][3] === sentakusi3[num-1][3]) {
-        let sen = sentakusi3[num-1][3];
-        qa[sen][4] = qa[sen][4] +1 ;  
-        console.log("正解数は"+qa[sen][4]+"です");
-  }else if(num === 2 && syutudai3[0][3] === sentakusi3[num-1][3]){
-    let sen = sentakusi3[num-1][3];
-        qa[sen][4] = qa[sen][4] +1 ;  
-        console.log("正解数は"+qa[sen][4]+"です");
-  }else if(num === 3 && syutudai3[0][3] === sentakusi3[num-1][3]){
-    let sen = sentakusi3[num-1][3];
-        qa[sen][4] = qa[sen][4] +1 ;  
-        console.log("正解数は"+qa[sen][4]+"です");
-
-  }
-
-//■1-13 回答・解説・正誤を表示させる処理
-
-for (let sen = 0; sen < sentakusi3.length; sen++) {
-    if(syutudai3[0][0]==sentakusi3[sen][0]){
-      var anser= "---";
-
-      
-    console.log(qa[0][4]);
-
-    }else{
-      anser= "-";
-    }
-      let namber = sentakusi3[sen][3]
-    document.getElementById("text_q"+(sen+1)).innerHTML = ""+(sen+1)+"■ "+qa[namber][0];
-    document.getElementById("text_a"+(sen+1)).innerHTML = "解答"+anser+"  "+qa[namber][1];
-    document.getElementById("text_k"+(sen+1)).innerHTML = "解説"+anser+" ◆ "+qa[namber][2];
-    document.getElementById("text_maru"+(sen+1)).innerHTML = "正解数"+anser+"  "+qa[namber][4];
-    document.getElementById("text_batu"+(sen+1)).innerHTML = "間違数"+anser+"  "+qa[namber][5];
-
-
-  }
-}
 
 
 
 /**
+let test =  fs.readFile('hoge.txt', "utf-8",function(err, data) {
+ 
+    console.log(data);
+   
+  });
 
-//1-14　押せなくなった回答ボタンを復活させる処理
-function kaizyo(){
-  for(i=0 ; i<=2 ; i++){
-    if (document.getElementById("text_r"+(i+1)).disabled === true){
-		// disabled属性を削除
-		document.getElementById("text_r"+(i+1)).removeAttribute("disabled");
-		document.getElementById("text_r"+(i+1)).style.color = "black";
-  	}else{
-		// disabled属性を設定
-    // document.getElementById("text_r"+(i+1)).setAttribute("disabled", true);
-    // document.getElementById("text_r"+(i+1)).style.color = "White";
-  	}
-  }
-}
+*/  
 
 
-*/
 
-
-</script>  
+    </script>
 </body>
 </html>
