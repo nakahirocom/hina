@@ -1,45 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>保存のテスト</title>
 </head>
 <body>
-    <script>
-let fs = require("fs");
+  <div id=001 style="font-size: 30px"></div>
+  <script>
+//fsという変数にfsモジュールを読み込む
+const fs = require('fs');
 
-let array = [1,2,3];
-
-save();
-
-function save(){
-    fs.writeFileSync('./tasks.json', JSON.stringify(array),'utf8') 
-};
-
-// 同期的にファイルから復元
 try {
-    const data = fs.readFileSync('./tasks.json', 'utf8');
-    tasks = JSON.parse(data);
-    console.log("tasksの中は"+tasks+"です")
-  } catch (ignore) {
-    console.log('./tasks.json' + 'から復元できませんでした');
-  }
+  const data = fs.readFileSync("./yomikomi.json", 'utf-8');
+  console.log("1" + data);
+
+  tasks = JSON.parse(data);
+  console.log("2" + data);
+
+}catch (ignore) {
+  console.log("復元できませんでした");
+}
+
+document.getElementById(001).innerHTML = "   "+data;
+
+var tx = "Node.jsによるファイル書き出しテストだよ"
+
+
+//FSモジュールを持つfs変数のﾒｿｯﾄﾞ「readFile」を使ってファイルを読む
+fs.writeFile('writetest.json',JSON.stringify(tx), function(error) {
+  //中身を出力する
+  console.log(error);
+});
 
 
 
-/**
-let test =  fs.readFile('hoge.txt', "utf-8",function(err, data) {
- 
-    console.log(data);
-   
-  });
 
-*/  
-
-
-
-    </script>
+  </script>
 </body>
 </html>
