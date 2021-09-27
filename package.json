@@ -1,0 +1,8 @@
+{
+  "name": "20210927",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nakahirocom/20210729.git",
+  "author": "Hiroyuki Nakamura <nakahirocom@gmail.com>",
+  "license": "MIT"
+}
